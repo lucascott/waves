@@ -1,1 +1,6 @@
+static/assets/
+static/recordings/*
+!static/recordings/.gitkeep
+
+.venv/
 .idea/

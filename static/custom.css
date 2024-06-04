@@ -1,0 +1,111 @@
+.waveform {
+    cursor: pointer;
+    position: relative;
+}
+
+.hover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    pointer-events: none;
+    height: 100%;
+    width: 0;
+    mix-blend-mode: overlay;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.waveform:hover .hover {
+    opacity: 1;
+}
+
+.time, .duration {
+    border-radius: 20%;
+    position: absolute;
+    z-index: 11;
+    top: 50%;
+    margin-top: -1px;
+    transform: translateY(-50%);
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 2px;
+    color: #ddd;
+}
+
+.time {
+    left: 0;
+}
+
+.duration {
+    right: 0;
+}
+
+.material-icons {
+    vertical-align: middle;
+}
+
+.actions {
+    margin-top: 1em;
+}
+
+.spotlight .image img {
+    object-fit: cover;
+    width: 16em;
+    height: 16em;
+}
+
+@media screen and (max-width: 980px) {
+    .spotlight .image {
+        display: none;
+    }
+
+    .spotlight:before {
+        display: block;
+        content: '';
+        width: 16em;
+        height: 2px;
+        margin: 1em 0 0 0;
+        border-radius: 2px;
+        background-color: whitesmoke;
+    }
+
+    .spotlight:last-child:before {
+        display: none;
+    }
+
+    #footer .copyright {
+        text-align: center;
+    }
+}
+
+.button {
+    min-width: 0;
+}
+
+.spotlight .image {
+    margin: 0 1.5em 0 0;
+    padding: 0.35em;
+    border-radius: 5%;
+}
+
+.spotlight .image img {
+    border-radius: 3%;
+}
+
+body {
+    background-color: #cd6641;
+    background-image: url("../static/assets/css/images/overlay.png"), -moz-linear-gradient(45deg, #14213d 25%, #262626 75%);
+    background-image: url("../static/assets/css/images/overlay.png"), -webkit-linear-gradient(45deg, #14213d 25%, #262626 75%);
+    background-image: url("../static/assets/css/images/overlay.png"), -ms-linear-gradient(45deg, #14213d 25%, #262626 75%);
+    background-image: url("../static/assets/css/images/overlay.png"), linear-gradient(45deg, #14213d 25%, #262626 75%);
+}
+
+#main header.major h2:after {
+    background-color: #dddddd;
+    background-image: -moz-linear-gradient(90deg, #203765, #9f9f9f, #ff804e);
+    background-image: -webkit-linear-gradient(90deg, #203765, #9f9f9f, #ff804e);
+    background-image: -ms-linear-gradient(90deg, #203765, #9f9f9f, #ff804e);
+    background-image: linear-gradient(90deg, #203765, #9f9f9f, #ff804e);
+}
