@@ -1,0 +1,15 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dockerfiles/webserver.Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./static/recordings:/app/static/recordings:ro
+
+  audiowaveform:
+    build:
+      dockerfile: dockerfiles/audiowaveform.Dockerfile
+    volumes:
+      - ./static/recordings:/monitor
