@@ -20,7 +20,6 @@
         <p>Collection of mixes by Hagakure lost in history</p>
     </header>
 
-    <!-- Nav -->
     <nav id="nav">
         <ul>
             <li><a href="#mixes" class="active">Mixes</a></li>
@@ -32,8 +31,7 @@
         <section id="mixes" class="main">
             {% for set in sets_list %}
                 <div class="spotlight">
-                    <span class="image"><img src="{{ set.artwork_path or '../static/images/pic01.jpg' }}"
-                                             alt=""/></span>
+                    <span class="image"><img src="{{ set.artwork_path or '../static/images/pic01.jpg' }}" alt="artwork"/></span>
                     <div class="content">
                         <header class="major">
                             <h2>{{ set.name or set.id }}</h2>
@@ -66,14 +64,12 @@
 
     </div>
 
-    <!-- Footer -->
     <footer id="footer">
-        <p class="copyright">&copy; Luca Scotton - Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        <p class="copyright">&copy; Luca Scotton - Design based on <a href="https://html5up.net/stellar" target=”_blank”>HTML5 UP/stellar</a>.</p>
     </footer>
 
 </div>
 
-<!-- Scripts -->
 <script src="../static/assets/js/jquery.min.js"></script>
 <script src="../static/assets/js/jquery.scrollex.min.js"></script>
 <script src="../static/assets/js/jquery.scrolly.min.js"></script>
