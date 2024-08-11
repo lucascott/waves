@@ -26,7 +26,13 @@ def get_artwork_path(path: str) -> str | None:
 def sanitize_for_html_id(string: str) -> str:
     if string[0].isdigit():
         string = '_' + string
-    return string.replace(' ', '_').replace('.', '_')
+    return (
+        string
+        .replace(' ', '_')
+        .replace('.', '_')
+        .replace('(', '')
+        .replace(')', '')
+    )
 
 
 def collect_recordings():
