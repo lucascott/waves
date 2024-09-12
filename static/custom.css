@@ -52,6 +52,7 @@
 
 .spotlight .image img {
     object-fit: cover;
+    object-position: top;
     width: 16em;
     height: 16em;
 }
@@ -63,7 +64,7 @@
 
 .spotlight .image {
     margin: 0 1.5em 0 0;
-    padding: 0.35em;
+    padding: 0.25em;
     border-radius: 5%;
 }
 
@@ -118,7 +119,7 @@ body {
 
     .spotlight .image {
         margin: 1em 0 0 0;
-        padding: 0.35em;
+        padding: 0.25em;
         border-radius: 5%;
     }
     
