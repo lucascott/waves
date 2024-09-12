@@ -38,7 +38,7 @@
         <section id="mixes" class="main">
             {% for set in sets_list %}
                 <div class="spotlight">
-                    <span class="image"><img src="{{ set.artwork_path or '../static/images/pic01.jpg' }}" alt="artwork"/></span>
+                    <span class="image"><img src="{{ set.artwork_path }}" alt="artwork"/></span>
                     <div class="content">
                         <header class="major">
                             <h2>{{ set.name or set.id }}</h2>

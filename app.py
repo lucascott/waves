@@ -5,6 +5,7 @@ from flask import Flask, render_template
 
 _RECORDINGS_PATH = 'static/recordings'
 _ARTWORK_PLACEHOLDER_PATH = 'static/artwork_placeholder.webp'
+_ARTWORK_EXTENSIONS = {'.jpg', '.png', '.webp'}
 app = Flask(__name__)
 
 
@@ -14,13 +15,16 @@ class Recording:
     name: str
     path: str
     peaks_path: str
-    artwork_path: str
     last_modified_date: float
+    artwork_path: str = _ARTWORK_PLACEHOLDER_PATH
 
 
 def get_artwork_path(path: str) -> str | None:
-    artwork_path = path + '.jpg'
-    return artwork_path if os.path.exists(artwork_path) else _ARTWORK_PLACEHOLDER_PATH
+    for ext in _ARTWORK_EXTENSIONS:
+        artwork_path = path + ext
+        if os.path.isfile(artwork_path):
+            return artwork_path
+    return _ARTWORK_PLACEHOLDER_PATH
 
 
 def sanitize_for_html_id(string: str) -> str:
@@ -48,8 +52,8 @@ def collect_recordings():
                     name=file_no_ext,
                     path=path,
                     peaks_path=path + '.json',
-                    artwork_path=get_artwork_path(path),
                     last_modified_date=last_modified_date,
+                    artwork_path=get_artwork_path(path),
                 )
             )
     recording_list.sort(key=lambda x: x.last_modified_date, reverse=True)
