@@ -33,7 +33,7 @@ setsList.forEach((setObj) => {
     console.log(setObj)
     const wavesurfer = WaveSurfer.create({
         backend: 'MediaElement',
-        container: `#${setObj.id}`,
+        container: `#${setObj.id}-waveform`,
         waveColor: gradient,
         progressColor: progressGradient,
         barWidth: 2,

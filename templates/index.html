@@ -38,12 +38,13 @@
         <section id="mixes" class="main">
             {% for set in sets_list %}
                 <div class="spotlight">
+                    <div id="{{ set.id }}" style="position:relative;top:-300px"></div>
                     <span class="image"><img src="{{ set.artwork_path }}" alt="artwork"/></span>
                     <div class="content">
                         <header class="major">
                             <h2>{{ set.name or set.id }}</h2>
                         </header>
-                        <div id="{{ set.id }}" class="waveform">
+                        <div id="{{ set.id }}-waveform" class="waveform">
                             <div id="{{ set.id }}-time" class="time">0:00</div>
                             <div id="{{ set.id }}-duration" class="duration">0:00</div>
                             <div id="{{ set.id }}-hover" class="hover"></div>
