@@ -1,13 +1,25 @@
+networks:
+  frontend:
+    external: true
+
 services:
   web:
     build:
       context: .
       dockerfile: dockerfiles/webserver.Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ./static/recordings:/app/static/recordings:ro
-
+    restart: unless-stopped
+    networks:
+      - frontend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mixes.rule=Host(`mixes.lucascott.com`)"
+      - "traefik.http.routers.mixes.entrypoints=websecure"
+      - "traefik.http.routers.mixes.tls=true"
+      - "traefik.http.routers.mixes.tls.certresolver=letsencrypt"
   audiowaveform:
     build:
       dockerfile: dockerfiles/audiowaveform.Dockerfile
