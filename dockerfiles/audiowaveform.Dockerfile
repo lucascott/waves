@@ -5,16 +5,15 @@ FROM python:3.12-slim-bookworm
 
 WORKDIR /tmp
 
-RUN apt update \
-    && apt install -y libmad0 libsndfile1 libid3tag0 libboost-all-dev \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm audiowaveform_1.10.1-1-12_arm64.deb
+RUN apt-get update \
+    && apt-get install -y libmad0 libsndfile1 libid3tag0 libboost-all-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=downloader /audiowaveform_1.10.1-1-12_arm64.deb .
 RUN dpkg -i audiowaveform_1.10.1-1-12_arm64.deb \
-    apt -f install -y
-
+    && apt-get -f install -y \
+    && rm audiowaveform_1.10.1-1-12_arm64.deb
 
 RUN pip install "watchdog[watchmedo]"
 
