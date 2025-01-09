@@ -64,6 +64,9 @@ def collect_recordings():
 def index():
     return render_template('index.html', sets_list=collect_recordings())
 
+@app.route('/health')
+def health():
+    return "I'm healthy :)"
 
 if __name__ == '__main__':
     app.run()
