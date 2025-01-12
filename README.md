@@ -17,3 +17,8 @@ Update the requirements with:
 ```shell
 poetry export > requirements.txt
 ```
+
+Code style:
+```shell
+black .
+```
