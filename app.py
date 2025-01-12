@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from flask import Flask, render_template
 
 _RECORDINGS_PATH = "static/recordings"
-_ARTWORK_PLACEHOLDER_PATH = "static/artwork_placeholder.webp"
+_ARTWORK_PLACEHOLDER_PATH = "static/images/artwork_placeholder.webp"
 _ARTWORK_EXTENSIONS = {".jpg", ".png", ".webp"}
 app = Flask(__name__)
 
