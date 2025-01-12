@@ -1,5 +1,12 @@
+html {
+    cursor: url('images/cursor-default.svg') 13 4, auto !important
+}
+
+a {
+    cursor: url('images/cursor-pointer.svg') 13 4, auto !important;
+}
+
 .waveform {
-    cursor: pointer;
     position: relative;
 }
 
@@ -48,6 +55,7 @@
 
 .actions {
     margin-top: 1em;
+    cursor: inherit !important;
 }
 
 .spotlight .image img {
@@ -57,8 +65,13 @@
     height: 16em;
 }
 
-
 .button {
+    cursor: url('images/cursor-pointer.svg') 13 4, auto !important;
+    min-width: 0;
+}
+
+.button.special {
+    cursor: url('images/cursor-rock.svg') 13 4, auto !important;
     min-width: 0;
 }
 
@@ -107,7 +120,7 @@ body {
     .spotlight:first-child:before {
         display: none;
     }
-    
+
     .spotlight {
         -moz-flex-direction: column;
         -webkit-flex-direction: column;
@@ -122,7 +135,7 @@ body {
         padding: 0.25em;
         border-radius: 5%;
     }
-    
+
     .spotlight .image img {
         height: 5em;
         width: 5em;

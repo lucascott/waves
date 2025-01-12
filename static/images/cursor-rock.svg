@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+    <polygon fill="#000" stroke="#fff" stroke-width="1" points="23.46 9.46 23.46 27.46 12.46 27.46 12.46 24.23 8.46 19.92 8.46 13.46 11.46 13.46 11.46 4.46 14.46 4.46 14.46 9.46 18.53 9.46 20.46 9.46 20.46 7.46 20.46 4.46 23.46 4.46 23.46 7.46 23.46 9.46"/>
+    <line fill="none" stroke="#fff" stroke-width="1" x1="14.46" y1="14.96" x2="14.46" y2="8.96"/>
+    <line fill="none" stroke="#fff" stroke-width="1" x1="11.46" y1="17.96" x2="11.46" y2="12.96"/>
+    <line fill="none" stroke="#fff" stroke-width="1" x1="17.46" y1="14.96" x2="17.46" y2="8.96"/>
+    <line fill="none" stroke="#fff" stroke-width="1" x1="20.46" y1="14.96" x2="20.46" y2="8.96"/>
+</svg>
