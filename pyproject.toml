@@ -6,8 +6,8 @@ authors = [{ name = "Luca Scotton", email = "luca@lucascott.com" }]
 requires-python = "~=3.13"
 readme = "README.md"
 dependencies = [
-    "flask>=3.0.3,<4",
-    "waitress>=3.0.0,<4",
+    "flask~=3.0",
+    "waitress~=3.0",
 ]
 
 [dependency-groups]

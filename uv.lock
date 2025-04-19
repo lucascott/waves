@@ -147,8 +147,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "flask", specifier = ">=3.0.3,<4" },
-    { name = "waitress", specifier = ">=3.0.0,<4" },
+    { name = "flask", specifier = "~=3.0" },
+    { name = "waitress", specifier = "~=3.0" },
 ]
 
 [package.metadata.requires-dev]
