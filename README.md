@@ -15,7 +15,7 @@ curl -L -o html5up-stellar.zip https://html5up.net/stellar/download \
 
 Update the requirements with:
 ```shell
-poetry export > requirements.txt
+uv export > requirements.txt
 ```
 
 Code style:
