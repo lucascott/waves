@@ -12,12 +12,12 @@ services:
     networks:
       - reverse-proxy
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mixes.rule=Host(`mixes.lucascott.com`)"
-      - "traefik.http.routers.mixes.entrypoints=websecure"
-      - "traefik.http.routers.mixes.tls=true"
-      - "traefik.http.routers.mixes.tls.certresolver=letsencrypt-dns"
-      - "traefik.http.routers.mixes.tls.domains[0].sans=*.lucascott.com"
+      - traefik.enable=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`mixes.lucascott.com`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls=true
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt-dns
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.domains[0].sans=*.lucascott.com
 
   audiowaveform:
     build:
