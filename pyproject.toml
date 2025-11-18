@@ -8,6 +8,7 @@ readme = "README.md"
 dependencies = [
     "flask~=3.0",
     "waitress~=3.0",
+    "prometheus-flask-exporter~=0.23",
 ]
 
 [dependency-groups]

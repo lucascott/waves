@@ -2,11 +2,25 @@ import os
 from dataclasses import dataclass
 
 from flask import Flask, render_template
+from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_client import Gauge
 
 _RECORDINGS_PATH = "static/recordings"
 _ARTWORK_PLACEHOLDER_PATH = "static/images/artwork_placeholder.webp"
 _ARTWORK_EXTENSIONS = {".jpg", ".png", ".webp"}
 app = Flask(__name__)
+
+_metrics = PrometheusMetrics(
+    app,
+    excluded_paths=[
+        "/static/assets/",
+        "/static/images/",
+    ],
+    default_latency_as_histogram=False,
+)
+_recordings_count_gauge = Gauge(
+    "recordings_available_count", "Number of available recordings"
+)
 
 
 @dataclass
@@ -56,7 +70,9 @@ def collect_recordings():
 
 @app.route("/")
 def index():
-    return render_template("index.html", sets_list=collect_recordings())
+    recording_list = collect_recordings()
+    _recordings_count_gauge.set(len(recording_list))
+    return render_template("index.html", sets_list=recording_list)
 
 
 @app.route("/health")
