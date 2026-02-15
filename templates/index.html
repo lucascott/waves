@@ -1,96 +1,132 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Hagakure wavess</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Collection of mixes by Hagakure">
+    <meta name="theme-color" content="#000000">
+    <meta name="color-scheme" content="dark">
+    <title>Hagakure waves</title>
+
+    <!-- Open Graph / Social Media -->
     <meta property="og:url" content="https://mixes.lucascott.com"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:site_name" content="Hagakure wavesss"/>
-    <meta property="og:title" content="Hagakure wavesss"/>
-    <meta property="og:description" content="Collection of mixes by Hagakure lost in history"/>
+    <meta property="og:site_name" content="Hagakure waves"/>
+    <meta property="og:title" content="Hagakure waves"/>
+    <meta property="og:description" content="Collection of mixes by Hagakure"/>
     <meta property="og:image" content="https://mixes.lucascott.com/static/artwork_placeholder.webp"/>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <link rel="stylesheet" href="../static/assets/css/main.css"/>
-    <noscript>
-        <link rel="stylesheet" href="../static/assets/css/noscript.css"/>
-    </noscript>
+
+    <!-- Preconnect to font services -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="../static/custom.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/custom.css"/>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 </head>
-<body class="is-preload">
-
-<div id="wrapper">
-
-    <header id="header">
-        <h1>Hagakure wavesss</h1>
-        <p>Collection of mixes by Hagakure lost in history</p>
+<body class="bg-black text-white">
+    <header class="sticky top-0 z-50 backdrop-blur">
+        <div class="max-w-6xl mx-auto px-3 sm:px-4 md:px-8 py-3">
+            <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light">
+                hagakure waves
+            </h1>
+            <div class="text-neutral-500 text-xl mt-1 sm:mt-2 tracking-widest">✴ ✴ ✴ ✴</div>
+        </div>
     </header>
 
-    <nav id="nav">
-        <ul>
-            <li><a href="#mixes" class="active">Mixes</a></li>
-            <li><a href="#thoughts">Thoughts</a></li>
-        </ul>
-    </nav>
-
-    <div id="main">
-        <section id="mixes" class="main">
+    <main class="max-w-6xl mx-auto px-3 sm:px-4 md:px-8 pt-8 sm:pt-12 pb-8">
+        <section id="mixes" class="space-y-6 sm:space-y-8 md:space-y-16">
             {% for set in sets_list %}
-                <div class="spotlight">
+                <article>
                     <div id="{{ set.id }}" style="position:relative;top:-300px"></div>
-                    <span class="image"><img src="{{ set.artwork_path }}" alt="artwork"/></span>
-                    <div class="content">
-                        <header class="major">
-                            <h2>{{ set.name or set.id }}</h2>
-                        </header>
-                        <div id="{{ set.id }}-waveform" class="waveform">
-                            <div id="{{ set.id }}-time" class="time">0:00</div>
-                            <div id="{{ set.id }}-duration" class="duration">0:00</div>
-                            <div id="{{ set.id }}-hover" class="hover"></div>
+
+                    <div class="flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-12 lg:gap-16 items-start w-full">
+                        <!-- Artwork -->
+                        <div class="flex justify-center md:justify-start mx-auto md:mx-0 flex-shrink-0">
+                            <img src="{{ set.artwork_path }}" alt="artwork for {{ set.name or set.id }}" class="w-40 h-40 sm:w-56 sm:h-56 md:w-72 md:h-72 lg:w-96 lg:h-96 aspect-square object-cover object-top rounded-lg"/>
                         </div>
-                        <ul class="actions">
-                            <li><a id="{{ set.id }}-button" class="button"><i class="material-icons">play_arrow</i>/<i
-                                    class="material-icons">pause</i></a></li>
-                        </ul>
+
+                        <!-- Content -->
+                        <div class="w-full md:flex-1 flex flex-col min-w-0 space-y-6">
+                            <!-- Title -->
+                            <div>
+                                <div class="text-neutral-500 text-xs mb-1 md:mb-5 tracking-widest">► MIX ◄</div>
+                                <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-light text-white break-words">
+                                    {{ set.name or set.id }}
+                                </h2>
+                            </div>
+
+                            <!-- Waveform -->
+                            <div id="{{ set.id }}-waveform" class="waveform relative rounded-lg overflow-hidden w-full h-full">
+                                <div id="{{ set.id }}-time" class="absolute left-1 sm:left-2 md:left-3 top-1/2 -translate-y-1/2 z-20 text-xs md:text-sm lg:text-base text-white font-bold whitespace-nowrap">0:00</div>
+                                <div id="{{ set.id }}-duration" class="absolute right-1 sm:right-2 md:right-3 top-1/2 -translate-y-1/2 z-20 text-xs md:text-sm lg:text-base text-white font-bold whitespace-nowrap">0:00</div>
+                                <div id="{{ set.id }}-hover" class="hover-overlay absolute inset-0 pointer-events-none rounded-lg opacity-0"></div>
+                            </div>
+
+                            <!-- Play Button -->
+                            <button id="{{ set.id }}-button" class="w-full sm:w-40 bg-gray-200 text-black font-bold text-sm py-3 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-white transition-colors flex-shrink-0">
+                                <i class="material-icons text-sm sm:text-base">play_arrow</i>
+                                <span>PLAY</span>
+                            </button>
+                        </div>
                     </div>
-                </div>
+
+                    <!-- Divider -->
+                    {% if not loop.last %}
+                    <div class="mt-6 sm:mt-8 md:mt-16 text-center text-neutral-500 text-xs tracking-widest">～ ◇ ～ ◇ ～</div>
+                    {% endif %}
+                </article>
             {% endfor %}
         </section>
 
-        <section id="thoughts" class="main special">
-            <header class="major">
-                <h2>Support your local scene</h2>
-                <p>Respect, share, help :)</p>
-            </header>
-            <footer class="major">
-                <ul class="actions special">
-                    <li><a href="https://entropy.fi/en" class="button special" target=”_blank”>entropy.fi</a></li>
-                </ul>
-            </footer>
+        <!-- Support Section -->
+        <section id="support" class="mt-16 md:mt-24">
+            <div class="text-center mx-auto">
+                <div class="text-neutral-500 text-xs mb-4 tracking-widest">(｡◕‿‿◕｡)</div>
+                <h2 class="text-2xl md:text-4xl font-light mb-4 text-white">support your local scene</h2>
+                <p class="text-neutral-400 text-lg md:text-xl mb-6">respect, share, help</p>
+                <a href="https://entropy.fi/en" target="_blank" class="special inline-block px-4 py-3 border border-white text-white rounded-lg text-sm md:text-lg font-bold hover:bg-white hover:text-black transition-colors">
+                    entropy.fi
+                </a>
+            </div>
         </section>
+    </main>
 
-    </div>
-
-    <footer id="footer">
-        <p class="copyright">&copy; Luca Scotton - Design based on <a href="https://html5up.net/stellar" target=”_blank”>HTML5 UP/stellar</a>.</p>
+    <footer class="mt-2 mb-16 md:mb-24">
+        <div class="max-w-6xl mx-auto px-3 py-8 text-center">
+            <div class="text-neutral-500 text-xs mb-2 tracking-widest">◆ ◇ ◆</div>
+            <p class="text-neutral-500 text-xs sm:text-sm">‧✧˚✴ Luca Scotton ✴˚✧‧</p>
+        </div>
     </footer>
 
-</div>
+    <!-- Bottom Player -->
+    <div id="bottom-player" class="fixed bottom-0 left-0 right-0 w-full bg-neutral-950 hidden z-50">
+        <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6 py-2 md:py-3 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1" id="player-info">
+                <img id="player-artwork" src="" alt="Now playing" class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 object-cover hidden rounded flex-shrink-0"/>
+                <div class="min-w-0 flex-1">
+                    <div id="player-title" class="text-white text-xs md:text-sm truncate font-medium">-</div>
+                    <div id="player-time" class="text-neutral-500 text-xs block">0:00 / 0:00</div>
+                </div>
+            </div>
+            <button id="player-btn" class="bg-gray-200 text-black p-1.5 sm:p-2 md:p-3 hover:bg-white transition-colors flex-shrink-0 flex items-center justify-center rounded">
+                <i class="material-icons text-base md:text-lg">play_arrow</i>
+            </button>
+        </div>
+        <div class="h-1 bg-white" id="player-progress" style="width: 0"></div>
+    </div>
 
-<script src="../static/assets/js/jquery.min.js"></script>
-<script src="../static/assets/js/jquery.scrollex.min.js"></script>
-<script src="../static/assets/js/jquery.scrolly.min.js"></script>
-<script src="../static/assets/js/browser.min.js"></script>
-<script src="../static/assets/js/breakpoints.min.js"></script>
-<script src="../static/assets/js/util.js"></script>
-<script src="../static/assets/js/main.js"></script>
-
-<script src="https://unpkg.com/wavesurfer.js@7"></script>
-<script>
-    const setsList = {{ sets_list | tojson }};
-</script>
-<script src="../static/custom.js"></script>
-
+    <script src="https://unpkg.com/wavesurfer.js@7"></script>
+    <script>
+        const setsList = {{ sets_list | tojson }};
+    </script>
+    <script src="../static/custom.js"></script>
 </body>
 </html>
