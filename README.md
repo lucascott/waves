@@ -20,5 +20,5 @@ uv export --no-dev > requirements.txt
 
 Code style:
 ```shell
-black .
+ruff format .
 ```
