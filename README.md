@@ -2,6 +2,9 @@
 
 Waves is a simple audio recordings hosting server.
 It aims to provide a simple way to host and share audio recordings such as dj mixes with friends.
+Just store your audio files in the configured recordings directory and they will be automatically available on the web interface.
+
+![Screenshot of Waves server](assets/preview.webp)
 
 ## Configuration
 

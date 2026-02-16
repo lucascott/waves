@@ -3,3 +3,4 @@ dockerfiles/
 .dockerignore
 docker-compose.yaml
 .gitignore
+assets/
