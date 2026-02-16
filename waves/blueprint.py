@@ -5,8 +5,7 @@ from prometheus_client import Gauge
 from prometheus_flask_exporter import PrometheusMetrics
 
 from waves import config
-from waves.config import outro_section
-from waves.models import Recording
+from waves.models import OutroSection, Recording
 
 blueprint = Blueprint("waves", __name__)
 
@@ -20,6 +19,13 @@ _metrics = PrometheusMetrics(
 )
 _recordings_count_gauge = Gauge(
     "recordings_available_count", "Number of available recordings"
+)
+
+_outro_section = OutroSection(
+    title=os.getenv("WAVES_OUTRO_TITLE"),
+    description=os.getenv("WAVES_OUTRO_DESCRIPTION"),
+    link_url=os.getenv("WAVES_OUTRO_LINK_URL"),
+    link_text=os.getenv("WAVES_OUTRO_LINK_TEXT"),
 )
 
 
@@ -70,5 +76,5 @@ def index():
         site_title=config.SITE_TITLE,
         site_footer=config.SITE_FOOTER,
         site_description=config.SITE_DESCRIPTION,
-        outro_section=outro_section,
+        outro_section=_outro_section,
     )

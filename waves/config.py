@@ -6,8 +6,6 @@ This enables easy customization for different deployment scenarios.
 
 import os
 
-from waves.models import OutroSection
-
 # Application Settings
 SITE_TITLE = os.getenv("WAVES_SITE_TITLE", "Waves ～ My mixes collection")
 SITE_DESCRIPTION = os.getenv(
@@ -39,11 +37,3 @@ SUPPORTED_AUDIO_FORMATS = parse_extensions(_supported_audio_formats_str)
 # Parse comma-separated artwork extensions
 _artwork_extensions_str = os.getenv("WAVES_ARTWORK_EXTENSIONS", "jpg,png,webp")
 ARTWORK_EXTENSIONS = parse_extensions(_artwork_extensions_str)
-
-
-outro_section = OutroSection(
-    title=os.getenv("WAVES_OUTRO_TITLE"),
-    description=os.getenv("WAVES_OUTRO_DESCRIPTION"),
-    link_url=os.getenv("WAVES_OUTRO_LINK_URL"),
-    link_text=os.getenv("WAVES_OUTRO_LINK_TEXT"),
-)
