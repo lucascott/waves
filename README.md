@@ -11,6 +11,12 @@ All configuration is optional with sensible defaults.
 All audio recordings should be placed in the directory specified by `WAVES_RECORDINGS_PATH` (default: `static/recordings`).
 The application will automatically scan this directory for audio files and display them on the web interface.
 
+See the compose.yaml file for a working deployment example with Docker Compose. Recordings are mounted from the `./recordings` directory on the host machine to the container.
+```shell
+docker compose up -d
+```
+Then visit `http://localhost:5000` in your browser to see the application in action.
+
 ### Audio waveform generation
 
 Waves generates audio waveforms for each recording to provide a visual representation of the audio. The waveforms are generated
