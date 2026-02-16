@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y curl gnupg \
   && echo "deb [signed-by=/usr/share/keyrings/chris-needham-ppa.gpg] https://ppa.launchpadcontent.net/chris-needham/ppa/ubuntu noble main" > /etc/apt/sources.list.d/chris-needham-ppa.list \
   && apt-get update && apt-get install -y audiowaveform \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
 # Install uv and watchdog
