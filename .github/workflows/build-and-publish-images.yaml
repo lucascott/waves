@@ -59,24 +59,24 @@ jobs:
           push-to-registry: true
 
       - name: Extract metadata for audiowaveform image
-        id: meta
+        id: meta-audiowaveform
         uses: docker/metadata-action@v5.7.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_AUDIOWAVEFORM }}
 
       - name: Build and push audiowaveform image
-        id: push
+        id: push-audiowaveform
         uses: docker/build-push-action@v6.18.0
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta-audiowaveform.outputs.tags }}
+          labels: ${{ steps.meta-audiowaveform.outputs.labels }}
 
       # This step generates an artifact attestation for the image, which is an unforgeable statement about where and how it was built. It increases supply chain security for people who consume the image. For more information, see [Using artifact attestations to establish provenance for builds](/actions/security-guides/using-artifact-attestations-to-establish-provenance-for-builds).
       - name: Generate artifact attestation for audiowaveform image
         uses: actions/attest-build-provenance@v2
         with:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_AUDIOWAVEFORM }}
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-digest: ${{ steps.push-audiowaveform.outputs.digest }}
           push-to-registry: true
