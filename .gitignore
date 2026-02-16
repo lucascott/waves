@@ -8,3 +8,4 @@ static/recordings/*
 .venv/
 .idea/
 .DS_Store
+.claude/

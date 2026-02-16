@@ -1,26 +1,19 @@
-networks:
-  reverse-proxy: { external: true }
-
 services:
   waves-server:
     build:
       context: .
       dockerfile: dockerfiles/webserver.Dockerfile
     volumes:
-      - ./static/recordings:/app/static/recordings:ro
+      - ./recordings:/app/static/recordings:ro
     restart: unless-stopped
-    networks:
-      - reverse-proxy
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`mixes.lucascott.com`)
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls=true
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt-dns
-      - traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls.domains[0].sans=*.lucascott.com
+    ports:
+      - "5000:5000"
+# uncomment the lines below and edit .env.example if you want to customize the settings
+#    env_file:
+#      - .env.example
 
   audiowaveform:
     build:
       dockerfile: dockerfiles/audiowaveform.Dockerfile
     volumes:
-      - ./static/recordings:/monitor
+      - ./recordings:/monitor

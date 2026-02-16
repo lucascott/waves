@@ -20,3 +20,20 @@ package = false
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.ruff.lint]
+select = [
+    # https://docs.astral.sh/ruff/rules/
+    "E",
+    "W",
+    "F",
+    "PL",
+    "I",
+    "N",
+    "UP",
+]
+ignore = [
+    # disabling this as it disagrees with the formatter
+    # in cases like comments or long docstrings
+    "E501",
+]
