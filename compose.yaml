@@ -1,8 +1,6 @@
 services:
   waves-server:
-    build:
-      context: .
-      dockerfile: dockerfiles/webserver.Dockerfile
+    image: ghcr.io/lucascott/waves
     volumes:
       - ./recordings:/app/static/recordings:ro
     restart: unless-stopped
@@ -12,8 +10,7 @@ services:
 #    env_file:
 #      - .env.example
 
-  audiowaveform:
-    build:
-      dockerfile: dockerfiles/audiowaveform.Dockerfile
+  waves-audiowaveform:
+    image: ghcr.io/lucascott/waves-audiowaveform
     volumes:
       - ./recordings:/monitor
