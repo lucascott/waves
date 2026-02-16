@@ -1,16 +1,17 @@
 services:
   waves-server:
     image: ghcr.io/lucascott/waves:main
-    volumes:
-      - ./recordings:/app/static/recordings:ro
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "8080:8080"
+    volumes:
+      - ./recordings:/app/static/recordings:ro
 # uncomment the lines below and edit .env.example if you want to customize the settings
 #    env_file:
 #      - .env.example
 
   waves-audiowaveform:
     image: ghcr.io/lucascott/waves-audiowaveform:main
+    restart: unless-stopped
     volumes:
       - ./recordings:/monitor

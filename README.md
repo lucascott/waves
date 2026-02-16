@@ -15,7 +15,7 @@ See the compose.yaml file for a working deployment example with Docker Compose. 
 ```shell
 docker compose up -d
 ```
-Then visit `http://localhost:5000` in your browser to see the application in action.
+Then visit `http://localhost:8080` in your browser to see the application in action.
 
 ### Audio waveform generation
 
