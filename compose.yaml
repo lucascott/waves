@@ -1,6 +1,6 @@
 services:
   waves-server:
-    image: ghcr.io/lucascott/waves
+    image: ghcr.io/lucascott/waves:main
     volumes:
       - ./recordings:/app/static/recordings:ro
     restart: unless-stopped
@@ -11,6 +11,6 @@ services:
 #      - .env.example
 
   waves-audiowaveform:
-    image: ghcr.io/lucascott/waves-audiowaveform
+    image: ghcr.io/lucascott/waves-audiowaveform:main
     volumes:
       - ./recordings:/monitor
