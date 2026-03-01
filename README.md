@@ -41,6 +41,10 @@ If you want to add custom artwork for your recordings, you can place image files
 The artwork file should be named with the same base name as the audio file and an extension listed in `WAVES_ARTWORK_EXTENSIONS` (default: `jpg,png,webp`).
 For example, if you have an audio file named `mix1.mp3`, you can add an artwork file named `mix1.mp3.jpg`.
 
+### Additional metadata
+Waves can also read additional metadata for each recording from a YAML file with the same base name as the audio file and a `.yaml` extension.
+The full configuration currently supported is documented in [example,mp3,yaml](./example.mp3.yaml). 
+
 ### Environment Variables
 
 | Variable                         | Description                                                             |

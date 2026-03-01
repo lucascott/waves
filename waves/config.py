@@ -37,3 +37,7 @@ SUPPORTED_AUDIO_FORMATS = parse_extensions(_supported_audio_formats_str)
 # Parse comma-separated artwork extensions
 _artwork_extensions_str = os.getenv("WAVES_ARTWORK_EXTENSIONS", "jpg,png,webp")
 ARTWORK_EXTENSIONS = parse_extensions(_artwork_extensions_str)
+
+# Parse comma-separated yaml extensions
+_yaml_extensions_str = os.getenv("WAVES_YAML_EXTENSIONS", "yaml,yml")
+YAML_EXTENSIONS = parse_extensions(_yaml_extensions_str)

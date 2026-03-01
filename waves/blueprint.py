@@ -1,5 +1,7 @@
 import os
 
+import markdown
+import yaml
 from flask import Blueprint, render_template
 from prometheus_client import Gauge
 from prometheus_flask_exporter import PrometheusMetrics
@@ -29,12 +31,41 @@ _outro_section = OutroSection(
 )
 
 
-def get_artwork_path(path: str) -> str | None:
+def get_artwork_path(path: str) -> str:
     for ext in config.ARTWORK_EXTENSIONS:
         artwork_path = path + ext
         if os.path.isfile(artwork_path):
             return artwork_path
     return config.ARTWORK_PLACEHOLDER_PATH
+
+
+def get_yaml_path(path: str) -> str | None:
+    """
+    Get the path to the YAML configuration file for the recording.
+    """
+    for ext in config.YAML_EXTENSIONS:
+        yaml_path = path + ext
+        if os.path.isfile(yaml_path):
+            return yaml_path
+    return None
+
+
+def load_yaml_data(path: str) -> dict:
+    """
+    Load YAML data from the given path.
+    """
+    try:
+        with open(path) as f:
+            data = yaml.safe_load(f)
+            if not data:
+                return {}
+            # Process markdown description if present
+            if "description" in data and data["description"]:
+                data["description"] = markdown.markdown(data["description"])
+            return data
+    except Exception as e:
+        print(f"Error loading yaml {path}: {e}")
+        return {}
 
 
 def sanitize_for_html_id(string: str) -> str:
@@ -52,6 +83,10 @@ def collect_recordings() -> list[Recording]:
         if os.path.isfile(path) and file_extension in config.SUPPORTED_AUDIO_FORMATS:
             last_modified_date = os.path.getmtime(path)
             file_no_ext = ".".join(file.split(".")[:-1])
+
+            yaml_path = get_yaml_path(path)
+            yaml_data = load_yaml_data(yaml_path) if yaml_path else {}
+
             recording_list.append(
                 Recording(
                     id=sanitize_for_html_id(file_no_ext),
@@ -60,6 +95,8 @@ def collect_recordings() -> list[Recording]:
                     peaks_path=path + ".json",
                     last_modified_date=last_modified_date,
                     artwork_path=get_artwork_path(path),
+                    description=yaml_data.get("description"),
+                    tags=yaml_data.get("tags"),
                 )
             )
     recording_list.sort(key=lambda x: x.last_modified_date, reverse=True)

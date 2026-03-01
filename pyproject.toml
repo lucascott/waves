@@ -9,6 +9,8 @@ dependencies = [
     "flask~=3.0",
     "waitress~=3.0",
     "prometheus-flask-exporter~=0.23",
+    "pyyaml~=6.0",
+    "markdown~=3.10",
 ]
 
 [dependency-groups]
