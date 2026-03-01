@@ -19,6 +19,14 @@ ARTWORK_PLACEHOLDER_PATH = os.getenv(
     "WAVES_ARTWORK_PLACEHOLDER_PATH", "static/images/artwork_placeholder.webp"
 )
 
+# Cache settings
+DISABLE_CACHE = (
+    os.getenv("WAVES_DISABLE_CACHE", "false").lower() == "true"
+)  # Cache enabled by default
+CACHE_DEFAULT_TIMEOUT = int(
+    os.getenv("WAVES_CACHE_DEFAULT_TIMEOUT", "60")
+)  # Default cache timeout in seconds
+
 
 def parse_extensions(extensions_str: str) -> set[str]:
     """

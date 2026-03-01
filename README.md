@@ -47,19 +47,22 @@ The full configuration currently supported is documented in [example,mp3,yaml](.
 
 ### Environment Variables
 
-| Variable                         | Description                                                             |
-|----------------------------------|-------------------------------------------------------------------------|
-| `WAVES_SITE_TITLE`               | Title of the website displayed in header and browser tab                |
-| `WAVES_SITE_DESCRIPTION`         | Site description for meta tags and social media                         |
-| `WAVES_SITE_FOOTER`              | Text to show in the footer section                                      |
-| `WAVES_OUTRO_TITLE`              | Title for the outro/support section                                     |
-| `WAVES_OUTRO_DESCRIPTION`        | Description text for the outro/support section                          |
-| `WAVES_OUTRO_LINK_URL`           | URL for the external link in the support section                        |
-| `WAVES_OUTRO_LINK_TEXT`          | Text for the external link                                              |
-| `WAVES_SUPPORTED_AUDIO_FORMATS`  | Comma-separated list of supported audio formats (without dots)          |
-| `WAVES_ARTWORK_EXTENSIONS`       | Comma-separated list of artwork file extensions to check (without dots) |
-| `WAVES_RECORDINGS_PATH`          | Path where audio recordings are stored                                  |
-| `WAVES_ARTWORK_PLACEHOLDER_PATH` | Path to placeholder image for recordings without artwork                |
+| Variable                         | Description                                                                            |
+|----------------------------------|----------------------------------------------------------------------------------------|
+| `WAVES_SITE_TITLE`               | Title of the website displayed in header and browser tab                               |
+| `WAVES_SITE_DESCRIPTION`         | Site description for meta tags and social media                                        |
+| `WAVES_SITE_FOOTER`              | Text to show in the footer section                                                     |
+| `WAVES_OUTRO_TITLE`              | Title for the outro/support section                                                    |
+| `WAVES_OUTRO_DESCRIPTION`        | Description text for the outro/support section                                         |
+| `WAVES_OUTRO_LINK_URL`           | URL for the external link in the support section                                       |
+| `WAVES_OUTRO_LINK_TEXT`          | Text for the external link                                                             |
+| `WAVES_SUPPORTED_AUDIO_FORMATS`  | Comma-separated list of supported audio formats (without dots)                         |
+| `WAVES_ARTWORK_EXTENSIONS`       | Comma-separated list of artwork file extensions to check (without dots)                |
+| `WAVES_RECORDINGS_PATH`          | Path where audio recordings are stored                                                 |
+| `WAVES_ARTWORK_PLACEHOLDER_PATH` | Path to placeholder image for recordings without artwork                               |
+| `WAVES_DISABLE_CACHE`            | Whether or not to disable the web server in-memory cache                               |
+| `WAVES_CACHE_DEFAULT_TIMEOUT`    | If the cache is enabled, the default timeout for cached items in seconds (default: 60) |
+
 
 ## Monitoring
 

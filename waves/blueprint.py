@@ -7,6 +7,7 @@ from prometheus_client import Gauge
 from prometheus_flask_exporter import PrometheusMetrics
 
 from waves import config
+from waves.caching import cache
 from waves.models import OutroSection, Recording
 
 blueprint = Blueprint("waves", __name__)
@@ -74,6 +75,7 @@ def sanitize_for_html_id(string: str) -> str:
     return string.replace(" ", "_").replace(".", "_").replace("(", "").replace(")", "")
 
 
+@cache.cached(key_prefix="recordings_list")
 def collect_recordings() -> list[Recording]:
     recording_list: list[Recording] = []
     for file in os.listdir(config.RECORDINGS_PATH):
