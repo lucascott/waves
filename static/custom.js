@@ -180,10 +180,28 @@ document.getElementById('player-btn').addEventListener('pointerdown', (e) => {
     toggleBottomPlayer()
 })
 
-// Set up info click handler
-document.getElementById('player-info').addEventListener('click', (e) => {
+// Set up info click handler - scroll to track
+document.getElementById('player-title').addEventListener('click', (e) => {
     e.stopPropagation()
-    toggleBottomPlayer()
+    // Find the currently playing set or the last played set
+    let set = null
+    for (let s of setsList) {
+        if (s.wavesurfer.isPlaying()) {
+            set = s
+            break
+        }
+    }
+    if (!set) set = lastPlayedSet
+
+    if (set) {
+        // Use the set ID directly as it corresponds to the div ID in the HTML
+        const element = document.getElementById(set.id)
+        if (element) {
+            // Scroll to the element - since it's an anchor with negative top, 
+            // native scrollIntoView works best to align it correctly
+            element.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
 })
 
 // Update player display on interval
