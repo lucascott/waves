@@ -263,6 +263,38 @@ document.getElementById('player-title').addEventListener('click', (e) => {
     }
 })
 
+// Share buttons
+document.querySelectorAll('.share-btn').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        
+        const id = btn.dataset.id
+        const url = `${window.location.origin}${window.location.pathname}#${id}`
+        
+        try {
+            await navigator.clipboard.writeText(url)
+            
+            // Visual feedback
+            const icon = btn.querySelector('i')
+            const originalIcon = 'link' // We know it's 'link'
+            
+            icon.textContent = 'check'
+            btn.classList.add('text-green-500')
+            btn.classList.remove('text-neutral-600', 'hover:text-white')
+            
+            setTimeout(() => {
+                icon.textContent = originalIcon
+                btn.classList.remove('text-green-500')
+                btn.classList.add('text-neutral-600', 'hover:text-white')
+            }, 2000)
+            
+        } catch (err) {
+            console.error('Failed to copy: ', err)
+        }
+    })
+})
+
 // Update player display on interval
 setInterval(updateBottomPlayer, 100)
 
