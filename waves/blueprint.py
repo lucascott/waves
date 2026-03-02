@@ -4,7 +4,6 @@ import markdown
 import yaml
 from flask import Blueprint, render_template
 from prometheus_client import Gauge
-from prometheus_flask_exporter import PrometheusMetrics
 
 from waves import config
 from waves.caching import cache
@@ -12,14 +11,6 @@ from waves.models import OutroSection, Recording
 
 blueprint = Blueprint("waves", __name__)
 
-_metrics = PrometheusMetrics(
-    blueprint,
-    excluded_paths=[
-        "/static/assets/",
-        "/static/images/",
-    ],
-    default_latency_as_histogram=False,
-)
 _recordings_count_gauge = Gauge(
     "recordings_available_count", "Number of available recordings"
 )

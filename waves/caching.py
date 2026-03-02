@@ -17,9 +17,7 @@ def get_cache_config():
             "CACHE_TYPE": "NullCache",
         }
     _logger.info(
-        "Caching is enabled with a default timeout of {} seconds.".format(
-            CACHE_DEFAULT_TIMEOUT
-        )
+        f"Caching is enabled with a default timeout of {CACHE_DEFAULT_TIMEOUT} seconds."
     )
     return {
         "CACHE_TYPE": "SimpleCache",
