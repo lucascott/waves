@@ -300,3 +300,18 @@ setInterval(updateBottomPlayer, 100)
 
 // Initial update when this script finishes
 setTimeout(updateBottomPlayer, 100)
+
+
+// Global keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Spacebar to play/pause
+    if (e.code === 'Space' || e.key === ' ') {
+        // Don't trigger if user is typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+            return
+        }
+        
+        e.preventDefault()
+        toggleBottomPlayer()
+    }
+})
