@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD waitress-serve app:app
+CMD waitress-serve --threads=8 --connection-limit=200 app:app
