@@ -99,6 +99,7 @@ def collect_recordings() -> list[Recording]:
                     artwork_path=get_artwork_path(path),
                     description=yaml_data.get("description"),
                     tags=yaml_data.get("tags"),
+                    tracklist=yaml_data.get("tracklist"),
                 )
             )
     recording_list.sort(key=lambda x: x.last_modified_date, reverse=True)

@@ -106,6 +106,65 @@ setsList.forEach((setObj) => {
         wavesurfer.on('decode', (duration) => (durationEl.textContent = formatTime(duration)))
         wavesurfer.on('timeupdate', (currentTime) => (timeEl.textContent = formatTime(currentTime)))
     }
+    // Tracklist toggle
+    const tracklistToggle = document.querySelector(`#${setObj.id}-tracklist-toggle`)
+    const tracklistContainer = document.querySelector(`#${setObj.id}-tracklist`)
+
+    if (tracklistToggle && tracklistContainer) {
+        tracklistToggle.addEventListener('click', (e) => {
+            e.stopPropagation() // Prevent click from bubbling to document
+            const isHidden = tracklistContainer.classList.contains('hidden')
+            const icon = tracklistToggle.querySelector('i')
+            
+            // Close all other tracklists first
+            document.querySelectorAll('[id$="-tracklist"]').forEach(el => {
+                if (el.id !== `${setObj.id}-tracklist` && !el.classList.contains('hidden')) {
+                    el.classList.add('hidden')
+                    // Find corresponding toggle button to reset icon
+                    const toggleId = el.id + '-toggle'
+                    const toggleBtn = document.getElementById(toggleId)
+                    if (toggleBtn) {
+                        const toggleIcon = toggleBtn.querySelector('i')
+                        if (toggleIcon) toggleIcon.textContent = 'expand_more'
+                        toggleBtn.classList.remove('text-white')
+                    }
+                }
+            })
+
+            if (isHidden) {
+                // Open
+                tracklistContainer.classList.remove('hidden')
+                icon.textContent = 'expand_less'
+                tracklistToggle.classList.add('text-white')
+            } else {
+                // Close
+                tracklistContainer.classList.add('hidden')
+                icon.textContent = 'expand_more'
+                tracklistToggle.classList.remove('text-white')
+            }
+        })
+
+        // Stop propagation on the container too so clicking inside doesn't close it
+        tracklistContainer.addEventListener('click', (e) => {
+            e.stopPropagation()
+        })
+    }
+})
+
+// Close tracklists when clicking outside
+document.addEventListener('click', () => {
+    document.querySelectorAll('[id$="-tracklist"]').forEach(el => {
+        if (!el.classList.contains('hidden')) {
+            el.classList.add('hidden')
+            const toggleId = el.id + '-toggle'
+            const toggleBtn = document.getElementById(toggleId)
+            if (toggleBtn) {
+                const toggleIcon = toggleBtn.querySelector('i')
+                if (toggleIcon) toggleIcon.textContent = 'expand_more'
+                toggleBtn.classList.remove('text-white')
+            }
+        }
+    })
 })
 
 // ========== Bottom Player ==========

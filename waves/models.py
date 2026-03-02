@@ -17,6 +17,7 @@ class Recording:
     artwork_path: str = config.ARTWORK_PLACEHOLDER_PATH
     description: str | None = None
     tags: list[str] | None = None
+    tracklist: list[str] | None = None
 
 
 @dataclass
