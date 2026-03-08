@@ -77,7 +77,7 @@ def collect_recordings() -> list[Recording]:
     processed_ids: set[str] = set()
     recordings_paths = list(
         filter(
-            lambda path: path.suffix in config.SUPPORTED_AUDIO_FORMATS,
+            lambda path: path.suffix.lower() in config.SUPPORTED_AUDIO_FORMATS,
             Path(config.RECORDINGS_PATH).iterdir(),
         )
     )
@@ -86,14 +86,8 @@ def collect_recordings() -> list[Recording]:
     recordings_paths.sort(key=lambda rec: _audio_format_preferences[rec.suffix])
 
     for recording_path in recordings_paths:
-        # Check if file matches any supported audio format
-        file_extension = recording_path.suffix.lower()
-        if (
-            recording_path.is_file()
-            and file_extension in config.SUPPORTED_AUDIO_FORMATS
-            and recording_path.stem not in processed_ids
-        ):
-            file_no_ext = recording_path.stem
+        if recording_path.stem not in processed_ids and recording_path.is_file():
+            file_name_no_ext = recording_path.stem
             last_modified_date = os.path.getmtime(recording_path)
 
             yaml_path = get_yaml_path(recording_path)
@@ -101,8 +95,8 @@ def collect_recordings() -> list[Recording]:
 
             recording_list.append(
                 Recording(
-                    id=sanitize_for_html_id(file_no_ext),
-                    name=file_no_ext,
+                    id=sanitize_for_html_id(file_name_no_ext),
+                    name=file_name_no_ext,
                     path=str(recording_path),
                     peaks_path=str(recording_path.with_suffix(".json")),
                     last_modified_date=last_modified_date,
@@ -114,7 +108,7 @@ def collect_recordings() -> list[Recording]:
                     tracklist=yaml_data.get("tracklist"),
                 )
             )
-            processed_ids.add(file_no_ext)
+            processed_ids.add(file_name_no_ext)
     recording_list.sort(key=lambda x: x.last_modified_date, reverse=True)
     return recording_list
 
