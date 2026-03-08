@@ -28,14 +28,14 @@ CACHE_DEFAULT_TIMEOUT = int(
 )  # Default cache timeout in seconds
 
 
-def parse_extensions(extensions_str: str) -> set[str]:
+def parse_extensions(extensions_str: str) -> list[str]:
     """
     Parse a comma-separated string of file extensions into a set of extensions with leading dots.
 
     :param extensions_str: A comma-separated string of file extensions (e.g., "mp3,wav,flac")
     :return: A set of file extensions with leading dots (e.g., {".mp3", ".wav", ".flac"})
     """
-    return {f".{ext.strip()}" for ext in extensions_str.split(",")}
+    return [f".{ext.strip()}" for ext in extensions_str.split(",")]
 
 
 # Parse comma-separated audio extensions
