@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import markdown
 import yaml
@@ -23,26 +24,26 @@ _outro_section = OutroSection(
 )
 
 
-def get_artwork_path(path: str) -> str:
+def get_artwork_path(base_path: Path) -> Path:
     for ext in config.ARTWORK_EXTENSIONS:
-        artwork_path = path + ext
-        if os.path.isfile(artwork_path):
+        artwork_path = base_path.with_suffix(ext)
+        if artwork_path.is_file():
             return artwork_path
-    return config.ARTWORK_PLACEHOLDER_PATH
+    return Path(config.ARTWORK_PLACEHOLDER_PATH)
 
 
-def get_yaml_path(path: str) -> str | None:
+def get_yaml_path(base_path: Path) -> Path | None:
     """
     Get the path to the YAML configuration file for the recording.
     """
     for ext in config.YAML_EXTENSIONS:
-        yaml_path = path + ext
-        if os.path.isfile(yaml_path):
+        yaml_path = base_path.with_suffix(ext)
+        if yaml_path.is_file():
             return yaml_path
     return None
 
 
-def load_yaml_data(path: str) -> dict:
+def load_yaml_data(path: Path) -> dict:
     """
     Load YAML data from the given path.
     """
@@ -69,13 +70,14 @@ def sanitize_for_html_id(string: str) -> str:
 @cache.cached(key_prefix="recordings_list")
 def collect_recordings() -> list[Recording]:
     recording_list: list[Recording] = []
-    for file in os.listdir(config.RECORDINGS_PATH):
-        path = os.path.join(config.RECORDINGS_PATH, file)
+    processed_ids: set[str] = set()
+    recordings_path = Path(config.RECORDINGS_PATH)
+    for path in recordings_path.iterdir():
         # Check if file matches any supported audio format
-        file_extension = "." + file.split(".")[-1].lower() if "." in file else ""
-        if os.path.isfile(path) and file_extension in config.SUPPORTED_AUDIO_FORMATS:
+        file_extension = path.suffix.lower()
+        if path.is_file() and file_extension in config.SUPPORTED_AUDIO_FORMATS and path.stem not in processed_ids:
+            file_no_ext = path.stem
             last_modified_date = os.path.getmtime(path)
-            file_no_ext = ".".join(file.split(".")[:-1])
 
             yaml_path = get_yaml_path(path)
             yaml_data = load_yaml_data(yaml_path) if yaml_path else {}
@@ -84,15 +86,16 @@ def collect_recordings() -> list[Recording]:
                 Recording(
                     id=sanitize_for_html_id(file_no_ext),
                     name=file_no_ext,
-                    path=path,
-                    peaks_path=path + ".json",
+                    path=str(path),
+                    peaks_path=str(path.with_suffix(".json")),
                     last_modified_date=last_modified_date,
-                    artwork_path=get_artwork_path(path),
+                    artwork_path=str(get_artwork_path(path.parent / path.stem)),
                     description=yaml_data.get("description"),
                     tags=yaml_data.get("tags"),
                     tracklist=yaml_data.get("tracklist"),
                 )
             )
+            processed_ids.add(file_no_ext)
     recording_list.sort(key=lambda x: x.last_modified_date, reverse=True)
     return recording_list
 

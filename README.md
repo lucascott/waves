@@ -27,23 +27,23 @@ Then visit `http://localhost:8080` in your browser to see the application in act
 Waves generates audio waveforms for each recording to provide a visual representation of the audio. The waveforms are generated
 by a side Docker container when a new audio file is added to the recordings directory. 
 The generated waveforms are stored in the same directory as the audio file with the same base name and a `.json` extension.
-For example, if you have an audio file named `mix1.mp3`, the generated waveform will be stored as `mix1.mp3.json` in the same directory.
+For example, if you have an audio file named `mix1.mp3`, the generated waveform will be stored as `mix1.json` in the same directory.
 
 Alternatively, you can generate the waveform files locally using the [audiowaveform](https://github.com/bbc/audiowaveform) CLI tool.
 To generate a waveform file for an audio recording, run the following command:
 ```shell
-audiowaveform -i /path/to/recordings/mix1.mp3 -o /path/to/recordings/mix1.mp3.json --pixels-per-second 1 --bits 8
+audiowaveform -i /path/to/recordings/mix1.mp3 -o /path/to/recordings/mix1.json --pixels-per-second 1 --bits 8
 ```
 
 ### Artworks
 
 If you want to add custom artwork for your recordings, you can place image files with the same name as the audio file.
 The artwork file should be named with the same base name as the audio file and an extension listed in `WAVES_ARTWORK_EXTENSIONS` (default: `jpg,png,webp`).
-For example, if you have an audio file named `mix1.mp3`, you can add an artwork file named `mix1.mp3.jpg`.
+For example, if you have an audio file named `mix1.mp3`, you can add an artwork file named `mix1.jpg`.
 
 ### Additional metadata
 Waves can also read additional metadata for each recording from a YAML file with the same base name as the audio file and a `.yaml` extension.
-The full configuration currently supported is documented in [example,mp3,yaml](./example.mp3.yaml). 
+The full configuration currently supported is documented in [example.yaml](./example.yaml). 
 
 ### Environment Variables
 

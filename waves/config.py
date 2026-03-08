@@ -39,11 +39,11 @@ def parse_extensions(extensions_str: str) -> set[str]:
 
 
 # Parse comma-separated audio extensions
-_supported_audio_formats_str = os.getenv("WAVES_SUPPORTED_AUDIO_FORMATS", "mp3")
+_supported_audio_formats_str = os.getenv("WAVES_SUPPORTED_AUDIO_FORMATS", "opus,mp3,wav,flac")
 SUPPORTED_AUDIO_FORMATS = parse_extensions(_supported_audio_formats_str)
 
 # Parse comma-separated artwork extensions
-_artwork_extensions_str = os.getenv("WAVES_ARTWORK_EXTENSIONS", "jpg,png,webp")
+_artwork_extensions_str = os.getenv("WAVES_ARTWORK_EXTENSIONS", "webp,jpg,png")
 ARTWORK_EXTENSIONS = parse_extensions(_artwork_extensions_str)
 
 # Parse comma-separated yaml extensions
