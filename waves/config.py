@@ -39,7 +39,9 @@ def parse_extensions(extensions_str: str) -> set[str]:
 
 
 # Parse comma-separated audio extensions
-_supported_audio_formats_str = os.getenv("WAVES_SUPPORTED_AUDIO_FORMATS", "opus,mp3,wav,flac")
+_supported_audio_formats_str = os.getenv(
+    "WAVES_SUPPORTED_AUDIO_FORMATS", "opus,mp3,wav,flac"
+)
 SUPPORTED_AUDIO_FORMATS = parse_extensions(_supported_audio_formats_str)
 
 # Parse comma-separated artwork extensions

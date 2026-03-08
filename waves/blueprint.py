@@ -23,6 +23,10 @@ _outro_section = OutroSection(
     link_text=os.getenv("WAVES_OUTRO_LINK_TEXT"),
 )
 
+_audio_format_preferences = {
+    ext: idx for idx, ext in enumerate(config.SUPPORTED_AUDIO_FORMATS)
+}
+
 
 def get_artwork_path(base_path: Path) -> Path:
     for ext in config.ARTWORK_EXTENSIONS:
@@ -71,25 +75,40 @@ def sanitize_for_html_id(string: str) -> str:
 def collect_recordings() -> list[Recording]:
     recording_list: list[Recording] = []
     processed_ids: set[str] = set()
-    recordings_path = Path(config.RECORDINGS_PATH)
-    for path in recordings_path.iterdir():
-        # Check if file matches any supported audio format
-        file_extension = path.suffix.lower()
-        if path.is_file() and file_extension in config.SUPPORTED_AUDIO_FORMATS and path.stem not in processed_ids:
-            file_no_ext = path.stem
-            last_modified_date = os.path.getmtime(path)
+    recordings_paths = list(
+        filter(
+            lambda path: path.suffix in config.SUPPORTED_AUDIO_FORMATS,
+            Path(config.RECORDINGS_PATH).iterdir(),
+        )
+    )
+    # sort recordings by audio format preference (e.g., opus before mp3)
+    # to ensure consistent ordering when multiple formats of the same recording exist
+    recordings_paths.sort(key=lambda rec: _audio_format_preferences[rec.suffix])
 
-            yaml_path = get_yaml_path(path)
+    for recording_path in recordings_paths:
+        # Check if file matches any supported audio format
+        file_extension = recording_path.suffix.lower()
+        if (
+            recording_path.is_file()
+            and file_extension in config.SUPPORTED_AUDIO_FORMATS
+            and recording_path.stem not in processed_ids
+        ):
+            file_no_ext = recording_path.stem
+            last_modified_date = os.path.getmtime(recording_path)
+
+            yaml_path = get_yaml_path(recording_path)
             yaml_data = load_yaml_data(yaml_path) if yaml_path else {}
 
             recording_list.append(
                 Recording(
                     id=sanitize_for_html_id(file_no_ext),
                     name=file_no_ext,
-                    path=str(path),
-                    peaks_path=str(path.with_suffix(".json")),
+                    path=str(recording_path),
+                    peaks_path=str(recording_path.with_suffix(".json")),
                     last_modified_date=last_modified_date,
-                    artwork_path=str(get_artwork_path(path.parent / path.stem)),
+                    artwork_path=str(
+                        get_artwork_path(recording_path.parent / recording_path.stem)
+                    ),
                     description=yaml_data.get("description"),
                     tags=yaml_data.get("tags"),
                     tracklist=yaml_data.get("tracklist"),
