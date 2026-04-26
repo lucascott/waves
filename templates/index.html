@@ -149,16 +149,26 @@
     <!-- Bottom Player -->
     <div id="bottom-player" class="fixed bottom-0 left-0 right-0 w-full bg-neutral-950 hidden z-50">
         <div class="max-w-6xl mx-auto px-2 sm:px-4 md:px-6 py-2 md:py-3 flex items-center justify-between gap-2 sm:gap-4">
-            <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            <div class="flex items-center gap-4 min-w-0 flex-1">
                 <img id="player-artwork" src="" alt="Now playing" class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 object-cover hidden rounded flex-shrink-0"/>
                 <div class="min-w-0 flex-1">
                     <div id="player-title" class="text-white text-xs md:text-sm truncate font-medium cursor-pointer hover:underline">-</div>
                     <div id="player-time" class="text-neutral-500 text-xs block">0:00 / 0:00</div>
                 </div>
             </div>
-            <button id="player-btn" class="bg-gray-200 text-black p-1.5 sm:p-2 md:p-3 hover:bg-white transition-colors flex-shrink-0 flex items-center justify-center rounded">
-                <i class="material-icons text-base md:text-lg">play_arrow</i>
-            </button>
+            <div class="flex items-center gap-6 flex-shrink-0">
+                <div id="player-volume-wrap" class="relative flex-shrink-0">
+                    <button id="player-volume-btn" class="text-neutral-300 hover:text-white transition-colors flex items-center justify-center" type="button" aria-label="Toggle mute" aria-pressed="false">
+                        <i id="player-volume-icon" class="material-icons text-base md:text-lg">volume_up</i>
+                    </button>
+                    <div id="player-volume-popover" class="player-volume-popover" role="group" aria-label="Player volume control">
+                        <input id="player-volume" type="range" min="0" max="1" step="0.01" value="1" aria-label="Player volume" />
+                    </div>
+                </div>
+                <button id="player-btn" class="bg-gray-200 text-black p-1.5 sm:p-2 md:p-3 hover:bg-white transition-colors flex-shrink-0 flex items-center justify-center rounded">
+                    <i class="material-icons text-base md:text-lg">play_arrow</i>
+                </button>
+            </div>
         </div>
         <div class="h-1 bg-white" id="player-progress" style="width: 0"></div>
     </div>

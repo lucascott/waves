@@ -26,5 +26,49 @@ a, button {
 }
 /* Ensure text overlay doesn't overflow */
 #bottom-player {
-    overflow: hidden;
+    overflow: visible;
+}
+
+#player-volume {
+    accent-color: #e5e5e5;
+    width: 16px;
+    height: 100px;
+    margin: 0;
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+}
+
+#player-volume-wrap {
+    position: relative;
+    isolation: isolate;
+}
+
+.player-volume-popover {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 5px);
+    width: 42px;
+    height: 124px;
+    padding: 8px 6px;
+    border-radius: 8px;
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid #2a2a2a;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.45);
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: auto;
+    transform: translate(-50%, 6px);
+    transition: opacity 120ms ease 140ms, transform 120ms ease 140ms, visibility 0s linear 260ms;
+}
+
+#player-volume-wrap:hover .player-volume-popover,
+#player-volume-wrap:focus-within .player-volume-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition-delay: 0s, 0s, 0s;
 }

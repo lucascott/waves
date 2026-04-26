@@ -28,6 +28,10 @@ const formatTime = (seconds) => {
     return `${minutes}:${paddedSeconds}`
 }
 
+let playerVolume = 1
+let lastNonZeroVolume = 1
+let isMuted = false
+
 // Create the waveform
 setsList.forEach((setObj) => {
     console.log(setObj)
@@ -40,6 +44,7 @@ setsList.forEach((setObj) => {
         barGap: 1.5,
     })
     setObj.wavesurfer = wavesurfer;
+    wavesurfer.setVolume(playerVolume)
     fetch(setObj.peaks_path)
         .then(response => {
             if (!response.ok) {
@@ -170,6 +175,34 @@ document.addEventListener('click', () => {
 // ========== Bottom Player ==========
 let lastPlayedSet = null
 
+function updatePlayerVolumeIcon(volume) {
+    const playerVolumeIcon = document.getElementById('player-volume-icon')
+    if (!playerVolumeIcon) return
+
+    playerVolumeIcon.textContent = volume === 0 ? 'volume_off' : 'volume_up'
+}
+
+function setPlayerVolume(volume) {
+    playerVolume = volume
+    isMuted = playerVolume === 0
+    if (playerVolume > 0) {
+        lastNonZeroVolume = playerVolume
+    }
+
+    setsList.forEach((setObj) => {
+        if (setObj.wavesurfer) {
+            setObj.wavesurfer.setVolume(playerVolume)
+        }
+    })
+
+    const playerVolumeBtn = document.getElementById('player-volume-btn')
+    if (playerVolumeBtn) {
+        playerVolumeBtn.setAttribute('aria-pressed', String(isMuted))
+    }
+
+    updatePlayerVolumeIcon(playerVolume)
+}
+
 function getDisplayedSet() {
     // Find currently playing track
     for (let set of setsList) {
@@ -263,6 +296,54 @@ document.getElementById('player-title').addEventListener('click', (e) => {
     }
 })
 
+const playerVolumeInput = document.getElementById('player-volume')
+const playerVolumeWrap = document.getElementById('player-volume-wrap')
+
+if (playerVolumeInput) {
+    playerVolumeInput.addEventListener('input', (e) => {
+        setPlayerVolume(Number(e.target.value))
+    })
+
+    // Blur the input when user releases the slider to allow popover to hide
+    playerVolumeInput.addEventListener('mouseup', () => {
+        playerVolumeInput.blur()
+    })
+
+    // Also blur on touch end for mobile devices
+    playerVolumeInput.addEventListener('touchend', () => {
+        playerVolumeInput.blur()
+    })
+}
+
+// Hide popover when mouse leaves the volume control area
+if (playerVolumeWrap) {
+    playerVolumeWrap.addEventListener('mouseleave', () => {
+        if (playerVolumeInput) {
+            playerVolumeInput.blur()
+        }
+    })
+}
+
+const playerVolumeBtn = document.getElementById('player-volume-btn')
+if (playerVolumeBtn) {
+    playerVolumeBtn.addEventListener('click', (e) => {
+        e.stopPropagation()
+
+        if (isMuted || playerVolume === 0) {
+            const nextVolume = lastNonZeroVolume > 0 ? lastNonZeroVolume : 1
+            setPlayerVolume(nextVolume)
+            if (playerVolumeInput) {
+                playerVolumeInput.value = String(nextVolume)
+            }
+        } else {
+            setPlayerVolume(0)
+            if (playerVolumeInput) {
+                playerVolumeInput.value = '0'
+            }
+        }
+    })
+}
+
 // Share buttons
 document.querySelectorAll('.share-btn').forEach(btn => {
     btn.addEventListener('click', async (e) => {
@@ -300,6 +381,7 @@ setInterval(updateBottomPlayer, 100)
 
 // Initial update when this script finishes
 setTimeout(updateBottomPlayer, 100)
+setPlayerVolume(playerVolume)
 
 
 // Global keyboard shortcuts
