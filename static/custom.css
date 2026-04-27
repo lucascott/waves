@@ -15,6 +15,10 @@ a, button {
     cursor: url('images/cursor-pointer.svg') 13 4, auto !important;
 }
 
+input[type="range"] {
+    cursor: url('images/cursor-pointer.svg') 13 4, auto !important;
+}
+
 .special {
     cursor: url('images/cursor-rock.svg') 13 4, auto !important;
 }
