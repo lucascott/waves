@@ -15,6 +15,12 @@ a, button {
     cursor: url('images/cursor-pointer.svg') 13 4, auto !important;
 }
 
+.genre-tag[aria-pressed="true"],
+.genre-tag[aria-pressed="true"]:hover {
+    background-color: white;
+    color: black;
+}
+
 input[type="range"] {
     cursor: url('images/cursor-pointer.svg') 13 4, auto !important;
 }

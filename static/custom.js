@@ -28,6 +28,31 @@ const formatTime = (seconds) => {
     return `${minutes}:${paddedSeconds}`
 }
 
+// Filter mixes from the URL so filtered views can be shared and bookmarked.
+const genreParams = new URLSearchParams(window.location.search)
+let selectedGenre = genreParams.get('genre')
+
+function applyGenreFilter() {
+    document.querySelectorAll('.mix').forEach((mix) => {
+        mix.classList.toggle('hidden', selectedGenre !== null && !JSON.parse(mix.dataset.genres).includes(selectedGenre))
+    })
+    document.querySelectorAll('.genre-tag').forEach((tag) => {
+        const active = tag.dataset.genre === selectedGenre
+        tag.setAttribute('aria-pressed', String(active))
+    })
+}
+
+document.querySelectorAll('.genre-tag').forEach((tag) => {
+    tag.addEventListener('click', () => {
+        selectedGenre = selectedGenre === tag.dataset.genre ? null : tag.dataset.genre
+        if (selectedGenre === null) genreParams.delete('genre')
+        else genreParams.set('genre', selectedGenre)
+        history.replaceState(null, '', `${window.location.pathname}${genreParams.size ? `?${genreParams}` : ''}${window.location.hash}`)
+        applyGenreFilter()
+    })
+})
+applyGenreFilter()
+
 let playerVolume = 1
 let lastNonZeroVolume = 1
 let isMuted = false
@@ -351,7 +376,7 @@ document.querySelectorAll('.share-btn').forEach(btn => {
         e.stopPropagation()
         
         const id = btn.dataset.id
-        const url = `${window.location.origin}${window.location.pathname}#${id}`
+        const url = `${window.location.origin}${window.location.pathname}${window.location.search}#${id}`
         
         try {
             await navigator.clipboard.writeText(url)

@@ -42,7 +42,7 @@
     <main class="max-w-6xl mx-auto px-3 sm:px-4 md:px-8 pt-8 sm:pt-12 pb-8">
         <section id="mixes" class="space-y-6 sm:space-y-8 md:space-y-16">
             {% for set in sets_list %}
-                <article>
+                <article class="mix" data-genres='{{ (set.tags or []) | tojson }}'>
                     <div id="{{ set.id }}" style="position:relative;top:-300px"></div>
 
                     <div class="flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-12 lg:gap-16 items-start w-full">
@@ -74,7 +74,7 @@
                                 {% if set.tags %}
                                 <div class="flex flex-wrap gap-2 mt-4">
                                     {% for tag in set.tags %}
-                                    <span class="px-3 py-1 bg-neutral-900 border border-neutral-800 text-neutral-400 text-xs font-mono rounded-full">{{ tag }}</span>
+                                    <button type="button" class="genre-tag px-3 py-1 bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white text-xs font-mono rounded-full transition-colors" data-genre="{{ tag }}" aria-pressed="false">{{ tag }}</button>
                                     {% endfor %}
                                 </div>
                                 {% endif %}
